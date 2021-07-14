@@ -34,11 +34,13 @@ export default {
     .form__input {
         height: 40px;
         border: none;
-        border-bottom: 1px solid #3498DB;
+        border-bottom: 1px solid #FF6B6B;
+        background-color: inherit;
     }
+
     .button {
         height: 40px;
-        background-color: #3498DB;
+        background-color: #FF6B6B;
         color: #fff;
         font-size: large;
         border: none;
@@ -49,7 +51,7 @@ export default {
 
     .button:hover {
         cursor: pointer;
-        box-shadow: 0px 0px 10px 0px rgba(52,152,219,0.75);
+        box-shadow: 0px 0px 10px 0px rgba(255,107,107,1);
     }
 }
 </style>
