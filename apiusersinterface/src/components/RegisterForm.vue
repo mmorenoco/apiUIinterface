@@ -3,12 +3,12 @@
         <h1>Register Form</h1>
         <h2>Please fill out all details below</h2>
         <label  class="form__label" for="email">Email</label>
-        <input class="form__input" type="text" placeholder="Let us know how to contact you back">
+        <input class="form__input" type="text" placeholder="Let us know how to contact you back" v-model="email">
         <label class="form__label" for="firstName">Forename</label>
-        <input class="form__input" type="text" placeholder="Write your name here">
+        <input class="form__input" type="text" placeholder="Write your name here" v-model="name">
         <label class="form__label" for="surname">Surname</label>
-        <input class="form__input"  type="text"  placeholder="Write your surname here">
-        <button class="button" type="submit">Register</button>
+        <input class="form__input"  type="text"  placeholder="Write your surname here" v-model="surname">
+        <button class="button" type="submit" @click="addRegisteredUser">Register</button>
     </div>
 </template>
 
@@ -16,7 +16,31 @@
 export default {
     data() {
         return {
-            
+            email: '',
+            name: '',
+            surname: ''
+        }
+    },
+    methods: {
+        addRegisteredUser() {
+
+            const user = JSON.stringify({
+                email: this.email,
+                name: this.name,
+                surname: this.surname
+            })
+
+            const addUser = {
+                method: 'POST',
+                body: user,
+                redirect: 'follow'
+            }
+
+            fetch("https://reqres.in/api/users", addUser)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+            console.log(user)
         }
     },
 }
@@ -42,14 +66,12 @@ export default {
     }
 
     ::placeholder {
-        color: #154360;
-        opacity: .5;
+        color: var(--secondary);
+        opacity: .75;
     }
 
     .form__input:focus {
-        border-bottom: 1px solid tranparent;
-        border-radius: 2px;
-        background-image: linear-gradient(to top, #ff6b6b, #708090, #708090, #708090, #708090);
+        border-bottom: 1px solid var(--third)
     }
 
     .button {

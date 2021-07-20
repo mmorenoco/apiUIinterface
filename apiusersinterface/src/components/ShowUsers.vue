@@ -6,7 +6,7 @@
             </div>
             <div class="user-info">
                 <p>mmcorrales@outlook.com</p>
- 
+    <button @click="listUsers">Listar usuarios</button>
             </div>
         </div>
     </div>
