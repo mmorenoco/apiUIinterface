@@ -22,7 +22,7 @@ export default {
         }
     },
     methods: {
-        addRegisteredUser() {
+        async addRegisteredUser() {
 
             const user = JSON.stringify({
                 email: this.email,
@@ -36,7 +36,7 @@ export default {
                 redirect: 'follow'
             }
 
-            fetch("https://reqres.in/api/users", addUser)
+             await fetch("https://reqres.in/api/users", addUser)
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));

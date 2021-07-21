@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <button @click="showUserList">Mostrar usuarios principal</button>
-    <user-details/>
-    <show-users></show-users>
+    <show-users :userList="userList"></show-users>
     <register-form/>
   </div>
 </template>
@@ -10,40 +9,29 @@
 <script>
 import RegisterForm from './components/RegisterForm.vue'
 import ShowUsers from './components/ShowUsers.vue'
-import UserDetails from './components/UserDetails.vue'
 
 export default {
   name: 'App',
   components: {
     RegisterForm,
-    ShowUsers,
-    UserDetails
+    ShowUsers
   },
   data() {
     return {
-      userList: {
-        pageOne: [],
-        pageTwo: []
-      }
+      userList: []
     }
   },
   methods: {
     async showUserList() {
-      const apiUrl = "https://reqres.in/api/users?page=1"
-      const apiUrl2 = "https://reqres.in/api/users?page=2"
+      const apiUrl = "https://reqres.in/api/users?per_page=20"
 
       try {
-        const response = await fetch(apiUrl)
-        const response2 = await fetch(apiUrl2)
-        
-        const data = await response.json()
-        const data2 = await response2.json()
-        
-        this.userList.pageOne.push(data.data)
-        this.userList.pageTwo.push(data2.data)
+        const response = await fetch(apiUrl) 
+       const data = await response.json()
 
-        console.log(this.userList.pageOne)
-        console.log(this.userList.pageTwo)
+      this.userList = data.data;
+
+      console.log(this.userList)
 
       }catch (error){
         console.log(error)
