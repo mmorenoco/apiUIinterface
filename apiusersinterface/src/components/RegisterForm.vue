@@ -48,11 +48,17 @@ export default {
 
 <style>
 
-
-@media only screen and  (max-width: 576px) {
     .form {
+        margin: auto;
+        width: 50%;
+        font-size: large;
         display: flex;
         flex-direction: column;
+        color: var(--details-one);
+        background-color: var(--secondary);
+        border-radius: 15px;
+        align-items: center;
+        justify-content: center;
     }
 
     .form__input {
@@ -62,37 +68,49 @@ export default {
         background-color: inherit;
         margin-bottom: 25px;
         text-align: center;
-       
+       width: 80%;
     }
 
     ::placeholder {
-        color: var(--secondary);
+        color: var(--main);
         opacity: .75;
     }
 
     .form__input:focus {
-        border-bottom: 1px solid var(--third)
+        background-color: transparent;
+        border-bottom: 1px solid var(--details-one)
     }
 
     .button {
+        width: 85%;
         height: 40px;
-        background-color: #FF6B6B;
-        color: #fff;
-        font-size: large;
-        border: none;
-        border-radius: 5px;
-        border-bottom: 2px solid #154360;
+        background-color: rgba(222, 222, 222, .25);  
+        color: var(--details-one);
+        font-size: x-large;
+        border: 2px solid var(--details-one);
+        border-radius: 25px;
         margin-top: 25px;
+        margin-bottom: 25px;
     }
 
     .button:hover {
         cursor: pointer;
-        box-shadow: 0px 0px 10px 0px rgba(255,107,107,1);
+        box-shadow: 0px 0px 10px 0px rgba(18, 32, 60,1);
     }
 
     .button:active {
         transform: translate(0, 0.3rem);
         box-shadow: 0 0.1 rgba(255,255,255, 0.65);
     }
+
+@media only screen and  (max-width: 576px) {
+    .form {
+        width: 100%;
+    }
+
+    .button {
+        width: 95%;
+    }
 }
+
 </style>
