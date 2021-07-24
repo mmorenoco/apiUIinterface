@@ -24,6 +24,10 @@ export default {
     methods: {
         async addRegisteredUser() {
 
+            if(!this.email || !this.name || !this.surname) {
+                return
+            }
+
             const user = JSON.stringify({
                 email: this.email,
                 name: this.name,
@@ -41,6 +45,14 @@ export default {
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
             console.log(user)
+
+            this.$emit('updateUserList')
+            this.resetForm()
+        },
+        resetForm() {
+            this.email = '',
+            this.name = '',
+            this.surname = ''
         }
     },
 }

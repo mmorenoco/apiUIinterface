@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <button @click="showUserList">Mostrar usuarios principal</button>
-    <show-users :userList="userList"></show-users>
+    <!-- <button @click="showUserList">Mostrar usuarios principal</button> -->
+    <show-users :userList="userList" @updateUserList="showUserList" @deleteUser="deleteUser"></show-users>
     <register-form/>
   </div>
 </template>
@@ -23,21 +23,27 @@ export default {
   },
   methods: {
     async showUserList() {
-      const apiUrl = "https://reqres.in/api/users?per_page=20"
+      const apiUrl = "https://reqres.in/api/users?per_page=100"
 
       try {
         const response = await fetch(apiUrl) 
-       const data = await response.json()
-
-      this.userList = data.data;
-
-      console.log(this.userList)
-
-      }catch (error){
-        console.log(error)
-      }
+        const data = await response.json()
+        
+        this.userList = data.data;
+        console.log(this.userList)
+        } catch (error) {
+          console.log(error)
+        }
+    },
+    deleteUser(id) {
+      this.userList = this.userList.filter((user)=> {
+        return id !== user.id
+      })
     }
-  }
+  },
+  mounted() {
+    this.showUserList()
+  },
 }
 </script>
 

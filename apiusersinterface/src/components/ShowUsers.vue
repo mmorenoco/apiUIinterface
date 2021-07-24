@@ -41,33 +41,40 @@ export default {
     methods: {
         showUserDetails(id) {
             this.showUser = true
+            
+            const userDetails = this.userList.filter((user)=> {
+                return id === user.id
+            })
 
-           id--
-
-            this.user ={
-                avatar: this.userList[id].avatar,
-                name: this.userList[id].first_name,
-                surname: this.userList[id].last_name,
-                email: this.userList[id].email,
-                id: this.userList[id].id
+            this.user ={            
+                avatar: userDetails[0].avatar,
+                name: userDetails[0].first_name,
+                surname: userDetails[0].last_name,
+                email: userDetails[0].email,
+                id: userDetails[0].id
             }
-
-            console.log(this.user)
-            },
+        },
         deleteUser(id) {
-            console.log(id)
-
-            this.$emit.deleteUser(id)
+            this.$emit('deleteUser', id)
         }
-        }
-
     }
+}
+
 </script>
 
 <style>
 
+    .user {
+        margin: auto;
+        width: 850px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+    }
     .user-info {
-        width: 600px;
+        width: 400px;
         height: 400px;
         background-color: rgba(222, 222, 222, .25);  
         color: var(--details-two);            font-size: x-large;
@@ -123,7 +130,7 @@ export default {
             background-color: rgba(222, 222, 222, .25);  
             backdrop-filter: blur(1px);
             color: var(--details-two);
-            width: 40%;
+            width: 50%;
             height: 400px;
             border-radius: 15px;
             border: 1px solid var(--details-two);
@@ -205,7 +212,7 @@ export default {
         }
 
     @media only screen and  (max-width: 576px) {
-        
+
         .user-info {
             width: 95%;
         }
@@ -214,76 +221,9 @@ export default {
             width: 90%;
         }
 
-        .user-details-modal--close {
-            background-color:var(--details-one);
-            color: var(--details-two);
-            line-height: 25px;
-            position: absolute;
-            right: 5px;
-            text-align: center;
-            top: 5px;
-            width: 24px;
-            text-decoration: none;
-            font-weight: bold;
-            -webkit-border-radius: 12px;
-            -moz-border-radius: 12px;
-            border-radius: 12px;
-            -moz-box-shadow: 1px 1px 3px var(--main);
-            -webkit-box-shadow: 1px 1px 3px var(--main);
-            box-shadow: 1px 1px 3px var(--main);
-        }
-
         .user-personal {
             font-weight: bold;
             font-size: x-large;
-        }
-        
-        .spin {
-            height: 40%;
-            width: inherit;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: auto;
-            margin-top: 25px;
-            margin-bottom: 35px;
-        }
-
-        .spin-image {
-            position: absolute;
-            border-radius: 50%;
-            width: 100px;
-            height: 100px;
-        }
-
-        .spin-one , .spin-two {
-            margin: 0;
-            padding: 0;
-            position: absolute;
-            border-radius: 50%;
-            background-color: transparent;
-        }
-
-        .spin-one:hover, .spin-two:hover {
-            animation: rotate 2s linear;
-        }
-
-        .spin-one {
-            height: 110px;
-            width: 110px;
-            border-top: 2px solid rgb(244, 159, 17);
-            border-bottom: 2px solid rgb(244, 159, 17);
-            border-left: 2px solid rgb(244, 159, 17,0);
-            border-right: 2px solid rgb(244, 159, 17);
-        }
-
-        .spin-two {
-            height: 120px;
-            width: 120px;
-            border-top: 2px solid rgb(244, 159, 17);
-            border-bottom: 2px solid rgb(244, 159, 17);
-            border-left: 2px solid rgb(244, 159, 17);
-            border-right: 2px solid rgb(244, 159, 17, 0);
         }
     }
 
