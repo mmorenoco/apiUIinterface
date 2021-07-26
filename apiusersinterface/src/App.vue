@@ -1,49 +1,16 @@
 <template>
   <div id="app">
-    <!-- <button @click="showUserList">Mostrar usuarios principal</button> -->
-    <show-users :userList="userList" @updateUserList="showUserList" @deleteUser="deleteUser"></show-users>
-    <register-form/>
+    <div class="nav">
+      <router-link to="/">Home</router-link>
+      <router-link to="/register">Register</router-link>
+    </div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import RegisterForm from './components/RegisterForm.vue'
-import ShowUsers from './components/ShowUsers.vue'
-
 export default {
   name: 'App',
-  components: {
-    RegisterForm,
-    ShowUsers
-  },
-  data() {
-    return {
-      userList: []
-    }
-  },
-  methods: {
-    async showUserList() {
-      const apiUrl = "https://reqres.in/api/users?per_page=100"
-
-      try {
-        const response = await fetch(apiUrl) 
-        const data = await response.json()
-        
-        this.userList = data.data;
-        console.log(this.userList)
-        } catch (error) {
-          console.log(error)
-        }
-    },
-    deleteUser(id) {
-      this.userList = this.userList.filter((user)=> {
-        return id !== user.id
-      })
-    }
-  },
-  mounted() {
-    this.showUserList()
-  },
 }
 </script>
 
@@ -67,7 +34,25 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: var(--five);
-    margin-top: 60px;
+  }
+
+  .nav { 
+    font-size: x-large;
+    padding-bottom: 30px;
+  }
+
+  .nav a {
+    margin: 10px;
+    padding: 15px;
+    font-weight: bold;
+    color: var(--details-two);
+    text-decoration: none;
+    border-radius: 10px;
+  }
+
+  .nav a.router-link-exact-active {
+    background-color: var(--details-one);
+    color: var(--main)
   }
 
 </style>
