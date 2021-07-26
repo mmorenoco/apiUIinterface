@@ -1,14 +1,17 @@
 <template>
-    <div class="form">
-        <h1>Register Form</h1>
-        <h2>Please fill out all details below</h2>
-        <label  class="form__label" for="email">Email</label>
-        <input class="form__input" type="text" placeholder="Let us know how to contact you back" v-model="email">
-        <label class="form__label" for="firstName">Forename</label>
-        <input class="form__input" type="text" placeholder="Write your name here" v-model="name">
-        <label class="form__label" for="surname">Surname</label>
-        <input class="form__input"  type="text"  placeholder="Write your surname here" v-model="surname">
-        <button class="button" type="submit" @click="addRegisteredUser">Register</button>
+    <div class="form-container">
+        <div class="form">
+            <h1>Register Form</h1>
+            <h2>Please fill out all details below</h2>
+            <label  class="form__label" for="email">Email</label>
+            <input class="form__input" type="text" placeholder="Let us know how to contact you back" v-model="email">
+            <label class="form__label" for="firstName">Forename</label>
+            <input class="form__input" type="text" placeholder="Write your name here" v-model="first_name">
+            <label class="form__label" for="surname">Surname</label>
+            <input class="form__input"  type="text"  placeholder="Write your surname here" v-model="last_name">
+            <button class="form__button" type="submit" @click="createUser">Register</button>
+        </div>
+        <router-link to="/" class="form__button--back">Go Back</router-link>
     </div>
 </template>
 
@@ -17,37 +20,36 @@ export default {
     data() {
         return {
             email: '',
-            name: '',
-            surname: ''
+            first_name: '',
+            last_name: ''
         }
     },
     methods: {
-        async addRegisteredUser() {
+        async createUser() {
 
-            const user = JSON.stringify({
-                email: this.email,
-                name: this.name,
-                surname: this.surname
-            })
-
-            const addUser = {
-                method: 'POST',
-                body: user,
-                redirect: 'follow'
+            if(!this.email || !this.first_name || !this.last_name) {
+                return
             }
 
-             await fetch("https://reqres.in/api/users", addUser)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
-            console.log(user)
+            const user = {
+                email: this.email,
+                name: this.first_name,
+                surname: this.last_name
+            }
+
+            this.$store.dispatch('createUser', user)
+            this.resetForm()
+        },
+        resetForm() {
+            this.email = '',
+            this.first_name = '',
+            this.last_name = ''
         }
     },
 }
 </script>
 
 <style>
-
     .form {
         margin: auto;
         width: 50%;
@@ -81,7 +83,7 @@ export default {
         border-bottom: 1px solid var(--details-one)
     }
 
-    .button {
+    .form__button {
         width: 85%;
         height: 40px;
         background-color: rgba(222, 222, 222, .25);  
@@ -93,14 +95,42 @@ export default {
         margin-bottom: 25px;
     }
 
-    .button:hover {
+    .form__button:hover {
         cursor: pointer;
         box-shadow: 0px 0px 10px 0px rgba(18, 32, 60,1);
     }
 
-    .button:active {
+    .form__button:active {
         transform: translate(0, 0.3rem);
         box-shadow: 0 0.1 rgba(255,255,255, 0.65);
+    }
+
+    .form__button--back {
+        height: 30px;
+        width: 200px;
+        background-color: inherit;
+        color: var(--secondary);
+        font-size: large;
+        font-weight: bold;
+        border: 2px solid var(--details-one);
+        border-radius: 25px;
+        margin: 0 auto;
+        margin-top: 25px;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    a {
+        text-decoration: none;
+        color: var(--secondary);
+    }
+
+    a:hover {
+        cursor: pointer;
+        background-color: var(--details-one);
+        box-shadow: 0px 0px 10px 0px rgba(18, 32, 60,1);
     }
 
 @media only screen and  (max-width: 576px) {
@@ -108,7 +138,7 @@ export default {
         width: 100%;
     }
 
-    .button {
+    .form_button {
         width: 95%;
     }
 }
