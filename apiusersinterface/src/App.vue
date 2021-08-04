@@ -15,6 +15,7 @@ export default {
 </script>
 
 <style>
+/* Buen detalles las variables, esto seria un muy buen putno a favor */
   :root {
     --main: #12203C;
     --secondary: #DEDEDE;
@@ -33,6 +34,7 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
+    /* Esta variable no se donde  esta creada. */
     color: var(--five);
   }
 

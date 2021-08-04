@@ -39,18 +39,24 @@ export default {
     methods: {
         async showUserDetails() {
             try {
+                // LOS CONSOLE.LOG!!!
                 const data = await fetch(`https://reqres.in/api/users/${this.$route.params.id}`)
                 console.log(data)
                 const response = await data.json()
                 const user = response.data
                 console.log(user)
                 this.user = user
+                // const user = response.data, luego this.user = user...por que no this.user = response.data ? Estamos creando una variable para nada, no?
+                // 
                 console.log(this.user)
             } catch(error) {
+                // Este console te lo podria comprar pero normalmente si ponemos un catch es para mostrar algún mensaje de error al user
                 console.log(error)
             }
         },
+        // Si la llamada la resuelves con .then no hace falta poner la palabra reservada async
         async updateUserDetails() {
+            // Los ;!!!!!
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
 
@@ -65,6 +71,7 @@ export default {
 
             fetch(`https://reqres.in/api/users/${this.user.id}`, requestOptions)
             .then(response => response.text())
+            // El console log
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
 

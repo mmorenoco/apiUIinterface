@@ -26,6 +26,7 @@ export default {
         this.showUserList()
     },
     computed: {
+        // Muy bien esto tambien pero prueba a usar MapState
         userList() {
             return this.$store.state.userList
         }

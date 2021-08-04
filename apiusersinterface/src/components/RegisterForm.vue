@@ -36,11 +36,12 @@ export default {
                 name: this.first_name,
                 surname: this.last_name
             }
-
+            // Bien, pero prueba a usar mapActions tambien.
             this.$store.dispatch('createUser', user)
             this.resetForm()
         },
         resetForm() {
+            // Por que esas comas? No es un objeto, es un metodo, no?
             this.email = '',
             this.first_name = '',
             this.last_name = ''
