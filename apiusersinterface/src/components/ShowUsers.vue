@@ -1,6 +1,7 @@
 <template>
 <div class="users-container">
     <div class="user">
+        <!--  v-bind:key ="users.id" es lo mismo que :key="user.id" -->
         <div class="user-info" v-for="users in userList" v-bind:key ="users.id">
             <p>{{ users.email }}</p>
             <div class="spin">
