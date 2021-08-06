@@ -3,6 +3,7 @@
         <div class="form">
             <h1>Register Form</h1>
             <h2>Please fill out all details below</h2>
+            <!-- Podrias crear tu propio componente <Input label="loquesea" :value="name" /> De cada uno de los label + input -->
             <label  class="form__label" for="email">Email</label>
             <input class="form__input" type="text" placeholder="Let us know how to contact you back" v-model="email">
             <label class="form__label" for="firstName">Forename</label>
@@ -26,7 +27,8 @@ export default {
     },
     methods: {
         async createUser() {
-
+            // Bien esta  salvaguarda.
+            // Como punto extra podria intentar comprobar si el email tiene el formato correcto con una expresión regular
             if(!this.email || !this.first_name || !this.last_name) {
                 return
             }
