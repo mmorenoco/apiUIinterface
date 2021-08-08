@@ -11,6 +11,7 @@ export default new Vuex.Store({
     mutations: {
         setUserList(state, userList) {
             state.userList = userList
+            // No hay que olvidarse de los console
             console.log(state.userList)
         }
     },
@@ -19,6 +20,8 @@ export default new Vuex.Store({
             const apiUrl = "https://reqres.in/api/users?per_page=100"
             try {
                 const response = await fetch(apiUrl) 
+                // No entiendo este segundo await, el response es una promesa?¿?¿?
+                // data es muy generico, no? listUsers mejor?
                 const data = await response.json()
                 commit('setUserList', data.data)
             } catch (error) {
@@ -26,6 +29,7 @@ export default new Vuex.Store({
             }
         },
         async createUser({ dispatch }, user) {
+            // myHeaders quiza no tiene mucho sentido. headers es mejor. My implica que es de algo/alguien y no le veo mucho sentido.
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
 
@@ -37,7 +41,10 @@ export default new Vuex.Store({
                     body: raw,
                     redirect: 'follow'
                 }
-                
+                // La url esta repe en ambos lados, podrias llevarla a una constante para ambos y solo añadirle la parte despues del .in
+                // const url = "https://reqres.in/api/users"
+                // En esta llamada no hacemos absolutamente nada con el resultado, no? De ser así mejor no poner then y catch.
+                // Si ponemos catch que sea para mostrar mensajes de error.
                 await fetch("https://reqres.in/api/users", addUser)
                     .then(response => response.text())
                     .then(result => console.log(result))
