@@ -29,6 +29,8 @@
 </template>
 
 <script>
+ const url = 'https://reqres.in/api/users/'
+
 export default {
     data() {
         return {
@@ -39,43 +41,30 @@ export default {
     methods: {
         async showUserDetails() {
             try {
-                // LOS CONSOLE.LOG!!!
-                const data = await fetch(`https://reqres.in/api/users/${this.$route.params.id}`)
-                console.log(data)
+                const data = await fetch(url + `${this.$route.params.id}`)
                 const response = await data.json()
-                const user = response.data
-                console.log(user)
-                this.user = user
-                // const user = response.data, luego this.user = user...por que no this.user = response.data ? Estamos creando una variable para nada, no?
-                // 
+                this.user = response.data
                 console.log(this.user)
             } catch(error) {
-                // Este console te lo podria comprar pero normalmente si ponemos un catch es para mostrar algún mensaje de error al user
-                console.log(error)
+                alert(error)
             }
         },
-        // Si la llamada la resuelves con .then no hace falta poner la palabra reservada async
-        async updateUserDetails() {
-            // Los ;!!!!!
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
+        updateUserDetails() {
+            var headers = new Headers();
+            headers.append("Content-Type", "application/json")
 
-            var raw = JSON.stringify(this.user);
+            var raw = JSON.stringify(this.user)
 
             var requestOptions = {
                 method: 'PUT',
-                headers: myHeaders,
+                headers: headers,
                 body: raw,
                 redirect: 'follow'
             };
 
-            fetch(`https://reqres.in/api/users/${this.user.id}`, requestOptions)
+            fetch(url +`${this.user.id}`, requestOptions)
             .then(response => response.text())
-            // El console log
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
-
-            this.showUserDetails()
+            .catch(error => alert('error', error));
         }
     },
     mounted() {
@@ -99,19 +88,19 @@ export default {
     border-radius: 10px;
 }
 
-    .spin__one {
-        border-top: 2px solid rgb(244, 159, 17);
-        border-bottom: 2px solid rgb(244, 159, 17);
-        border-left: 2px solid rgb(244, 159, 17,0);
-        border-right: 2px solid rgb(244, 159, 17);
+.spin__one {
+    border-top: 2px solid rgb(244, 159, 17);
+    border-bottom: 2px solid rgb(244, 159, 17);
+    border-left: 2px solid rgb(244, 159, 17,0);
+    border-right: 2px solid rgb(244, 159, 17);
     }
 
-    .spin__two {
-        border-top: 2px solid rgb(244, 159, 17);
-        border-bottom: 2px solid rgb(244, 159, 17);
-        border-left: 2px solid rgb(244, 159, 17);
-        border-right: 2px solid rgb(244, 159, 17, 0);
-    }
+.spin__two {
+    border-top: 2px solid rgb(244, 159, 17);
+    border-bottom: 2px solid rgb(244, 159, 17);
+    border-left: 2px solid rgb(244, 159, 17);
+    border-right: 2px solid rgb(244, 159, 17, 0);
+}
 
 .user-info__details {
     margin-top: 50px;

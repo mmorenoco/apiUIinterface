@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Register from '../views/Register.vue'
-import Home from '../views/Home.vue'
+import ShowUsers from '../views/ShowUsers.vue'
 import User from '../views/User.vue'
 
 Vue.use(VueRouter)
@@ -11,7 +11,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: ShowUsers
   },
   {
     path: '/user/:id',
