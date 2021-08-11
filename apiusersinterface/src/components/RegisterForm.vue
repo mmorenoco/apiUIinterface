@@ -29,6 +29,11 @@ export default {
         }
     },
     methods: {
+        // Primer parametro es el nombre de la store. El caso es que no tenemos modulos en la store
+        // https://vuex.vuejs.org/guide/modules.html#module-local-state
+        // Organiza así los modulos en la store. Solo tendras un modulo. El nombre que tenga
+        // El objeto que vayas a crear sera el nombre que tendras que  poner en el primer parametro
+        // de mapActions. El segundo, el array, es el nombre de cada action que quieras traerte
         ...mapActions('createUser', ['getUser']),
         createUser() {
             if(!this.email || !this.first_name || !this.last_name) {
