@@ -39,6 +39,7 @@ export default new Vuex.Store({
                 }
                 await fetch(url, addUser)
                     .then(response => response.text())
+                    .then(console.log(this.response))
                     .catch(error => alert('error', error));
                 
                 dispatch('updateUserList')

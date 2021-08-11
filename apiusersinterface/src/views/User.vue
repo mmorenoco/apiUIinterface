@@ -32,6 +32,7 @@
  const url = 'https://reqres.in/api/users/'
 
 export default {
+    name: 'User',
     data() {
         return {
             user: null,
@@ -44,7 +45,6 @@ export default {
                 const data = await fetch(url + `${this.$route.params.id}`)
                 const response = await data.json()
                 this.user = response.data
-                console.log(this.user)
             } catch(error) {
                 alert(error)
             }

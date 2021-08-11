@@ -17,7 +17,10 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
+    name: 'Form',
     data() {
         return {
             email: '',
@@ -26,7 +29,8 @@ export default {
         }
     },
     methods: {
-        async createUser() {
+        ...mapActions('createUser', ['getUser']),
+        createUser() {
             if(!this.email || !this.first_name || !this.last_name) {
                 return
             }
@@ -37,20 +41,22 @@ export default {
                 return
             }
 
-            const user = {
-                email: this.email,
-                name: this.first_name,
-                surname: this.last_name
-            }
+            // const user = {
+            //     email: this.email,
+            //     name: this.first_name,
+            //     surname: this.last_name
+            // }
             // Bien, pero prueba a usar mapActions tambien. // He estado leyendo pero no me queda claro como se utiliza y como pasar parametros
-            this.$store.dispatch('createUser', user)
+            // this.$store.dispatch('createUser', user)
+            
             this.resetForm()
         },
         resetForm() {
             this.email = ''
             this.first_name = ''
             this.last_name = ''
-        }
+        },
+        
     }
 }
 </script>
