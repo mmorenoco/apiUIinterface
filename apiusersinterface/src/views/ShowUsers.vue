@@ -1,34 +1,41 @@
 <template>
-<div class="users-container">
-    <div class="user">
-        <div class="user-info" v-for="users in userList" :key ="users.id">
-            <p>{{ users.email }}</p>
-            <div class="spin">
-                <div class="spin__one spin__one--yellow"></div>
-				<div class="spin__two spin__two--yellow"></div>
-                <img :src="users.avatar" alt="avatar" class="spin__image">
-            </div>  
-            <router-link :to="`/user/${users.id}`" class="user-info__details">View Details</router-link>
-         </div>
-    </div>
+    <div class="users-container">
+        <div class="user">
+            <div class="user-info" v-for="users in userList" :key ="users.id">
+                <p>{{ users.email }}</p>
+                <div class="spin">
+                    <div class="spin__one spin__one--yellow"></div>
+                    <div class="spin__two spin__two--yellow"></div>
+                    <img :src="users.avatar" alt="avatar" class="spin__image">
+                </div>  
+                <router-link :to="`/user/${users.id}`" class="user-info__details">View Details</router-link>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
     name: 'ShowUsers',
     methods: {
+        ...mapActions('user', ['updateUserList']),
         showUserList() {
-            this.$store.dispatch('updateUserList')
+            // this.$store.dispatch('updateUserList')
+            this.updateUserList();
         }
     },
     async created() {
         this.showUserList()
     },
     computed: {
-        ...mapState(['userList'])
+        ...mapState('user', ['userList']),
+        // Muy bien esto tambien pero prueba a usar MapState
+        // userList() {
+        //     return this.$store.state.userList
+        // }
     }
 }
 
@@ -176,4 +183,3 @@ export default {
     }
 
 </style>
-
