@@ -1,8 +1,7 @@
 <template>
 <div class="users-container">
     <div class="user">
-        <!--  v-bind:key ="users.id" es lo mismo que :key="user.id" -->
-        <div class="user-info" v-for="users in userList" v-bind:key ="users.id">
+        <div class="user-info" v-for="users in userList" :key ="users.id">
             <p>{{ users.email }}</p>
             <div class="spin">
                 <div class="spin__one spin__one--yellow"></div>
@@ -16,6 +15,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
     name: 'ShowUsers',
     methods: {
@@ -27,10 +28,7 @@ export default {
         this.showUserList()
     },
     computed: {
-        // Muy bien esto tambien pero prueba a usar MapState
-        userList() {
-            return this.$store.state.userList
-        }
+        ...mapState(['userList'])
     }
 }
 
