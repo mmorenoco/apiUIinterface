@@ -2,6 +2,7 @@
     <div class="users-container">
         <div class="user">
             <div class="user-info" v-for="users in userList" :key ="users.id">
+                <p>{{ showUserCountry() }}</p>
                 <p>{{ users.email }}</p>
                 <div class="spin">
                     <div class="spin__one spin__one--yellow"></div>
@@ -22,16 +23,27 @@ export default {
     name: 'ShowUsers',
     methods: {
         ...mapActions('user', ['updateUserList']),
+        ...mapActions('countries', ['updateCountriesList']),
         showUserList() {
             // this.$store.dispatch('updateUserList')
             this.updateUserList();
+            console.log(this.userList)
+        },
+        showCountries() {
+            this.updateCountriesList();
+            console.log('mensaje', this.allCountries)
+        },
+        showUserCountry() {
+            return this.allCountries[Math.floor(Math.random()*(100-1)+100)].country
         }
     },
     async created() {
-        this.showUserList()
+        this.showUserList(),
+        this.showCountries()
     },
     computed: {
         ...mapState('user', ['userList']),
+        ...mapState('countries', ['allCountries'])
         // Muy bien esto tambien pero prueba a usar MapState
         // userList() {
         //     return this.$store.state.userList
@@ -42,6 +54,10 @@ export default {
 </script>
 
 <style>
+
+.white {
+    color: white;
+}
     .user {
         margin: auto;
         width: 850px;

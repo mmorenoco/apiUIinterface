@@ -16,6 +16,7 @@ const user = {
                 const response = await fetch(url + "?per_page=100")
                 const listUsers = await response.json() //No se porque pero sino pones el await no te muestra los usuarios
                 commit('setUserList', listUsers.data)
+                console.log(listUsers.data)
             } catch (error) {
                 console.log(error)
             }

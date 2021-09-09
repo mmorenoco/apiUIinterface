@@ -6,16 +6,18 @@ const countries = {
         allCountries: [],
     },
     mutations: {
-        setCountriesList(state, countriesList) {
-            state.countriesList = countriesList
+        setCountriesList(state, allCountries)
+        {
+            state.allCountries = allCountries
         }
     },
     actions: {
         async updateCountriesList({ commit }) {
             try {
                 const response = await fetch(url)
-                const listOfCountries = await response.json() //No se porque pero sino pones el await no te muestra los usuarios
+                const listOfCountries = await response.json()
                 commit('setCountriesList', listOfCountries.data)
+                
             } catch (error) {
                 console.log(error)
             }
