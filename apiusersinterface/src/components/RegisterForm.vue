@@ -3,24 +3,23 @@
         <div class="form">
             <h1>Register Form</h1>
             <h2>Please fill out all details below</h2>
-            <!-- Podrias crear tu propio componente <Input label="loquesea" :value="name" /> De cada uno de los label + input --> // No se a que te refieres con esto
+            <!-- Podrias crear tu propio componente <Input label="loquesea" :value="name" /> De cada uno de los label + input -->
             <label  class="form__label" for="email">Email</label>
             <input class="form__input" type="text" placeholder="Let us know how to contact you back" v-model="email">
             <label class="form__label" for="firstName">Forename</label>
             <input class="form__input" type="text" placeholder="Write your name here" v-model="first_name">
             <label class="form__label" for="surname">Surname</label>
             <input class="form__input"  type="text"  placeholder="Write your surname here" v-model="last_name">
-            <button class="form__button" type="submit" @click="createUser">Register</button>
+            <button class="form__button" type="submit" @click="createNewUser">Register</button>
         </div>
         <router-link to="/" class="form__button--back">Go Back</router-link>
     </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions } from 'vuex';
 
 export default {
-    name: 'Form',
     data() {
         return {
             email: '',
@@ -29,13 +28,10 @@ export default {
         }
     },
     methods: {
-        // Primer parametro es el nombre de la store. El caso es que no tenemos modulos en la store
-        // https://vuex.vuejs.org/guide/modules.html#module-local-state
-        // Organiza así los modulos en la store. Solo tendras un modulo. El nombre que tenga
-        // El objeto que vayas a crear sera el nombre que tendras que  poner en el primer parametro
-        // de mapActions. El segundo, el array, es el nombre de cada action que quieras traerte
-        ...mapActions('createUser', ['getUser']),
-        createUser() {
+        ...mapActions('user', ['createUser']),
+        async createNewUser() {
+            // Bien esta  salvaguarda.
+            // Como punto extra podria intentar comprobar si el email tiene el formato correcto con una expresión regular
             if(!this.email || !this.first_name || !this.last_name) {
                 return
             }
@@ -46,23 +42,23 @@ export default {
                 return
             }
 
-            // const user = {
-            //     email: this.email,
-            //     name: this.first_name,
-            //     surname: this.last_name
-            // }
-            // Bien, pero prueba a usar mapActions tambien. // He estado leyendo pero no me queda claro como se utiliza y como pasar parametros
+
+            const user = {
+                email: this.email,
+                name: this.first_name,
+                surname: this.last_name
+            }
+            // Bien, pero prueba a usar mapActions tambien.
             // this.$store.dispatch('createUser', user)
-            
+            this.createUser(user)
             this.resetForm()
         },
         resetForm() {
             this.email = ''
             this.first_name = ''
             this.last_name = ''
-        },
-        
-    }
+        }
+    },
 }
 </script>
 

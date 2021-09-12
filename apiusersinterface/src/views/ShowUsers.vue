@@ -1,40 +1,63 @@
 <template>
-<div class="users-container">
-    <div class="user">
-        <div class="user-info" v-for="users in userList" :key ="users.id">
-            <p>{{ users.email }}</p>
-            <div class="spin">
-                <div class="spin__one spin__one--yellow"></div>
-				<div class="spin__two spin__two--yellow"></div>
-                <img :src="users.avatar" alt="avatar" class="spin__image">
-            </div>  
-            <router-link :to="`/user/${users.id}`" class="user-info__details">View Details</router-link>
-         </div>
-    </div>
+    <div class="users-container">
+        <div class="user">
+            <div class="user-info" v-for="users in userList" :key ="users.id">
+                <p>{{ showUserCountry() }}</p>
+                <p>{{ users.email }}</p>
+                <div class="spin">
+                    <div class="spin__one spin__one--yellow"></div>
+                    <div class="spin__two spin__two--yellow"></div>
+                    <img :src="users.avatar" alt="avatar" class="spin__image">
+                </div>  
+                <router-link :to="`/user/${users.id}`" class="user-info__details">View Details</router-link>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
     name: 'ShowUsers',
     methods: {
+        ...mapActions('user', ['updateUserList']),
+        ...mapActions('countries', ['updateCountriesList']),
         showUserList() {
-            this.$store.dispatch('updateUserList')
+            // this.$store.dispatch('updateUserList')
+            this.updateUserList();
+            console.log(this.userList)
+        },
+        showCountries() {
+            this.updateCountriesList();
+            console.log('mensaje', this.allCountries)
+        },
+        showUserCountry() {
+            return this.allCountries[Math.floor(Math.random()*(100-1)+100)].country
         }
     },
     async created() {
-        this.showUserList()
+        this.showUserList(),
+        this.showCountries()
     },
     computed: {
-        ...mapState(['userList'])
+        ...mapState('user', ['userList']),
+        ...mapState('countries', ['allCountries'])
+        // Muy bien esto tambien pero prueba a usar MapState
+        // userList() {
+        //     return this.$store.state.userList
+        // }
     }
 }
 
 </script>
 
 <style>
+
+.white {
+    color: white;
+}
     .user {
         margin: auto;
         width: 850px;
@@ -176,4 +199,3 @@ export default {
     }
 
 </style>
-
