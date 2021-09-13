@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import Register from '../views/Register.vue'
 import ShowUsers from '../views/ShowUsers.vue'
 import User from '../views/User.vue'
+import Maps from '../views/Maps.vue'
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,11 @@ const routes = [
     name: 'Register',
     component: Register
   },
+  {
+    path: '/maps',
+    name: 'Maps',
+    component: Maps
+  }
 ]
 
 // eslint-disable-next-line no-new
