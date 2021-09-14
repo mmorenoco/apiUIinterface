@@ -11,7 +11,7 @@ export default {
         loadMap() {
 
             const loader = new Loader({
-                apiKey: "yourapikey",
+                apiKey: "apikey",
                 version: "weekly",
                 libraries: ["places"]
             })
@@ -29,8 +29,6 @@ export default {
             loader
             .load()
             .then((google) => {
-
-                console.log(document.getElementById("map"))
                 new google.maps.Map(document.getElementById("map"), mapOptions);
                 this.$nextTick()
                 this.$forceUpdate()
@@ -48,6 +46,7 @@ export default {
 
 <style>
     #map {
-        height: 100%;
+        height: 500px;
+        width: 500px;
     }
 </style>
