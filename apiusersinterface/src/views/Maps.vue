@@ -11,7 +11,7 @@ export default {
         loadMap() {
 
             const loader = new Loader({
-                apiKey: "AIzaSyBmKeMZYfBGqIKwbiSy4t-OQfGs-f1otcA",
+                apiKey: "yourapikey",
                 version: "weekly",
                 libraries: ["places"]
             })
@@ -24,9 +24,13 @@ export default {
                 zoom: 4
             }
 
+
+
             loader
             .load()
             .then((google) => {
+
+                console.log(document.getElementById("map"))
                 new google.maps.Map(document.getElementById("map"), mapOptions);
                 this.$nextTick()
                 this.$forceUpdate()
