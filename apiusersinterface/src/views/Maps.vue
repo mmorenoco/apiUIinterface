@@ -11,31 +11,43 @@ export default {
         loadMap() {
 
             const loader = new Loader({
-                apiKey: "apikey",
+                apiKey: "AIzaSyBmKeMZYfBGqIKwbiSy4t-OQfGs-f1otcA",
                 version: "weekly",
                 libraries: ["places"]
             })
 
             const mapOptions = {
                 center: {
-                    lat: -34.397,
-                    lng: 150.644
+                    lat: 40.2085,
+                    lng: -3.713
                 },
-                zoom: 4
+                zoom: 6
             }
-
-
 
             loader
             .load()
             .then((google) => {
-                new google.maps.Map(document.getElementById("map"), mapOptions);
-                this.$nextTick()
-                this.$forceUpdate()
+                const map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+                new google.maps.Marker({
+                    position: { lat: -40.416729, lng: -3.703339},
+                    map: map,
+                    title: "Madrid",
+                })
+
+                new google.maps.Marker({
+                    position: { lat: 36.67777, lng: -5.446},
+                    map: map,
+                    title: "Ubrique",
+                })
+
+                return map
             })
+
+
             .catch(e => {
                 console.log(e)
-            });
+            })
         }
     },
     async mounted() {
@@ -46,6 +58,7 @@ export default {
 
 <style>
     #map {
+        margin: 0 auto;
         height: 500px;
         width: 500px;
     }
